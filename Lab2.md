@@ -48,16 +48,4 @@ SELECT * FROM tasty_byte_sales LIMIT 100;
 ```
 At this point, we have all the data we need to start building models. We will get started with building our first forecasting model.
 
-
-## 3. Forecasting Demand for Lobster Mac & Cheese
-
-### 3.1: Visualize Daily Sales in Snowsight
-Before building our model, let's first visualize our data to get a feel for what daily sales looks like. Run the following sql command in your Snowsight UI, and toggle to the chart at the bottom.
-```SQL
-SELECT *
-	FROM tasty_byte_sales
-	WHERE menu_item_name LIKE 'Lobster Mac & Cheese';
-```
-
-After toggling to the chart, we should see a daily sales for the item Lobster Mac & Cheese going back all the way to 2014:
-![Screenshot from the Quickstart](https://quickstarts.snowflake.com/guide/ml_forecasting_ad/img/985045efe72fef7.png)
+[Next --> Back to the Quickstart](https://quickstarts.snowflake.com/guide/ml_forecasting_ad/index.html?index=..%2F..index#2)
