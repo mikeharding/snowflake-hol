@@ -11,20 +11,14 @@ Step 1 has been performed by your administrator.
 
 ```SQL
 -- Use appropriate resources: 
-USE DATABASE HOLXXX; -- where XXX is your user name.
+USE DATABASE HOLXXX; -- where XXX is your user number.
 USE SCHEMA ml_functions;
 
--- Create warehouse to work with: 
-CREATE OR REPLACE WAREHOUSE quickstart_wh;
-USE WAREHOUSE quickstart_wh;
+USE WAREHOUSE whXXX; -- where XXX is your user number.
 
--- Set search path for ML Functions:
--- ref: https://docs.snowflake.com/en/user-guide/ml-powered-forecasting#preparing-for-forecasting
-ALTER ACCOUNT
-SET SEARCH_PATH = '$current, $public, SNOWFLAKE.ML';
 
 -- Create a csv file format to be used to ingest from the stage: 
-CREATE OR REPLACE FILE FORMAT quickstart.ml_functions.csv_ff
+CREATE OR REPLACE FILE FORMAT csv_ff
     type = 'csv'
     SKIP_HEADER = 1,
     COMPRESSION = AUTO;
@@ -33,10 +27,10 @@ CREATE OR REPLACE FILE FORMAT quickstart.ml_functions.csv_ff
 CREATE OR REPLACE STAGE s3load 
     COMMENT = 'Quickstart S3 Stage Connection'
     url = 's3://sfquickstarts/frostbyte_tastybytes/mlpf_quickstart/'
-    file_format = quickstart.ml_functions.csv_ff;
+    file_format = csv_ff;
 
 -- Define Tasty Byte Sales table
-CREATE OR REPLACE TABLE quickstart.ml_functions.tasty_byte_sales(
+CREATE OR REPLACE TABLE tasty_byte_sales(
   	DATE DATE,
 	PRIMARY_CITY VARCHAR(16777216),
 	MENU_ITEM_NAME VARCHAR(16777216),
@@ -44,9 +38,11 @@ CREATE OR REPLACE TABLE quickstart.ml_functions.tasty_byte_sales(
 );
 
 -- Ingest data from S3 into our table
-COPY INTO quickstart.ml_functions.tasty_byte_sales 
+COPY INTO tasty_byte_sales 
     FROM @s3load/ml_functions_quickstart.csv;
 
 -- View a sample of the ingested data: 
-SELECT * FROM quickstart.ml_functions.tasty_byte_sales LIMIT 100;
+SELECT * FROM tasty_byte_sales LIMIT 100;
 ```
+At this point, we have all the data we need to start building models. We will get started with building our first forecasting model.
+[Next](Lab3.md)
