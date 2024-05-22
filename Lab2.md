@@ -45,4 +45,5 @@ COPY INTO tasty_byte_sales
 SELECT * FROM tasty_byte_sales LIMIT 100;
 ```
 At this point, we have all the data we need to start building models. We will get started with building our first forecasting model.
+
 [Next](Lab3.md)
